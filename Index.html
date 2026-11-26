@@ -1,1 +1,110 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Fantasy | Zombie Survival</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="game">
+    <header class="topbar">
+      <div class="logo">
+        <span class="logo-mark">✦</span>
+        DARK FANTASY
+      </div>
+
+      <div class="status">
+        <span class="status-dot"></span>
+        SURVIVAL MODE
+      </div>
+    </header>
+
+    <section class="game-panel">
+      <div class="hud">
+        <div class="hud-box">
+          <span class="hud-label">WAVE</span>
+          <strong id="wave">01</strong>
+        </div>
+
+        <div class="hud-box">
+          <span class="hud-label">MONSTERS</span>
+          <strong id="enemies">0</strong>
+        </div>
+
+        <div class="hud-box">
+          <span class="hud-label">SCORE</span>
+          <strong id="score">0000</strong>
+        </div>
+      </div>
+
+      <div class="arena" id="arena">
+        <div class="sky"></div>
+        <div class="moon"></div>
+
+        <div class="mountains"></div>
+        <div class="ground"></div>
+
+        <div class="fog fog-one"></div>
+        <div class="fog fog-two"></div>
+
+        <div class="crosshair" id="crosshair">
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="enemies" id="enemies-container"></div>
+
+        <div class="player-view" id="player-view">
+          <div class="energy-device"></div>
+        </div>
+
+        <div class="damage-flash" id="damage-flash"></div>
+
+        <div class="overlay" id="overlay">
+          <div class="overlay-content">
+            <span class="eyebrow">THE NIGHT HAS COME</span>
+            <h1>DEAD<br>HORIZON</h1>
+            <p>Survive the endless waves.</p>
+            <button id="start-button">ENTER THE NIGHT</button>
+          </div>
+        </div>
+      </div>
+
+      <footer class="game-footer">
+        <div class="health">
+          <span class="hud-label">VITALITY</span>
+          <div class="health-track">
+            <div class="health-fill" id="health-fill"></div>
+          </div>
+          <strong id="health-text">100</strong>
+        </div>
+
+        <div class="weapon">
+          <span class="hud-label">EQUIPPED</span>
+          <strong>ARCANE PULSE</strong>
+        </div>
+
+        <button class="view-button" id="view-button">
+          THIRD PERSON
+        </button>
+      </footer>
+    </section>
+
+    <div class="controls">
+      <span>CLICK / TAP</span>
+      <span>•</span>
+      <span>ATTACK</span>
+      <span class="controls-separator"></span>
+      <span>V</span>
+      <span>•</span>
+      <span>CHANGE VIEW</span>
+    </div>
+
+    <div class="message" id="message"></div>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
