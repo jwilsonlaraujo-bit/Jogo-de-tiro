@@ -1,1 +1,499 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+:root {
+  --bg: #080708;
+  --panel: #100d10;
+  --red: #a52b35;
+  --red-light: #e34b55;
+  --text: #e8dfe3;
+  --muted: #8e8188;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top, #21131b 0%, transparent 60%),
+    var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.game {
+  width: min(1100px, 100%);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.logo {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.logo-mark {
+  color: var(--red-light);
+  margin-right: 10px;
+}
+
+.status {
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #8dce72;
+  border-radius: 50%;
+  margin-right: 8px;
+  box-shadow: 0 0 10px #8dce72;
+}
+
+.game-panel {
+  background: var(--panel);
+  border: 1px solid #38232a;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 45px #000;
+}
+
+.hud {
+  display: flex;
+  gap: 30px;
+  padding: 16px 22px;
+  background: #100c10;
+  border-bottom: 1px solid #38232a;
+}
+
+.hud-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hud-label {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.hud-box strong {
+  font-size: 24px;
+  color: var(--red-light);
+}
+
+.arena {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  background: #17121b;
+  cursor: crosshair;
+  isolation: isolate;
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 75% 25%, #41303d 0%, transparent 35%),
+    linear-gradient(#17121c, #30202a 65%, #19121a);
+}
+
+.moon {
+  position: absolute;
+  top: 70px;
+  right: 18%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #b9a9aa;
+  box-shadow: 0 0 45px #b9a9aa55;
+  opacity: 0.65;
+}
+
+.mountains {
+  position: absolute;
+  bottom: 130px;
+  width: 100%;
+  height: 200px;
+  background: #17131c;
+  clip-path: polygon(
+    0 100%, 0 60%, 15% 25%, 27% 70%,
+    44% 10%, 58% 65%, 74% 30%,
+    90% 65%, 100% 35%, 100% 100%
+  );
+}
+
+.ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 42%;
+  background:
+    linear-gradient(transparent, #080708 90%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 70px,
+      #38202b22 71px 73px
+    );
+  transform-origin: bottom;
+}
+
+.fog {
+  position: absolute;
+  width: 150%;
+  height: 100px;
+  left: -25%;
+  background: #b4a0ad;
+  opacity: 0.06;
+  filter: blur(35px);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.fog-one {
+  bottom: 80px;
+  animation: fogMove 18s linear infinite alternate;
+}
+
+.fog-two {
+  bottom: 170px;
+  animation: fogMove 24s linear infinite alternate-reverse;
+}
+
+@keyframes fogMove {
+  from { transform: translateX(-8%); }
+  to { transform: translateX(8%); }
+}
+
+.hud,
+.game-footer,
+.overlay,
+.crosshair {
+  position: relative;
+  z-index: 5;
+}
+
+.crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.crosshair span {
+  position: absolute;
+  background: #e8dfe3;
+}
+
+.crosshair span:first-child {
+  width: 1px;
+  height: 28px;
+  left: 13px;
+}
+
+.crosshair span:last-child {
+  height: 1px;
+  width: 28px;
+  top: 13px;
+}
+
+.enemies {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.enemy {
+  position: absolute;
+  width: 54px;
+  height: 100px;
+  border: 2px solid #3b272e;
+  border-radius: 45% 45% 15% 15%;
+  background: linear-gradient(#45313b, #171017);
+  box-shadow: 0 0 20px #000;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s;
+}
+
+.enemy::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: -20px;
+  left: 12px;
+  border-radius: 50%;
+  background: #59434a;
+  border: 2px solid #261820;
+}
+
+.enemy::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  top: -9px;
+  left: 18px;
+  background: #d94b51;
+  box-shadow: 12px 0 #d94b51;
+}
+
+.enemy.hit {
+  filter: brightness(2.5);
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.player-view {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  width: 180px;
+  height: 160px;
+  transform: translateX(-50%);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.energy-device {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100px;
+  height: 125px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #211820, #51404b, #211820);
+  clip-path: polygon(
+    30% 0, 70% 0, 85% 45%, 75% 100%,
+    25% 100%, 15% 45%
+  );
+  border-top: 3px solid #a52b35;
+  filter: drop-shadow(0 0 12px #a52b3566);
+}
+
+.player-view.third-person {
+  width: 140px;
+  height: 200px;
+}
+
+.player-view.third-person .energy-device {
+  width: 70px;
+  height: 100px;
+}
+
+.damage-flash {
+  position: absolute;
+  inset: 0;
+  background: #a52b35;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.damage-flash.active {
+  animation: damageFlash 0.25s;
+}
+
+@keyframes damageFlash {
+  0% { opacity: 0.35; }
+  100% { opacity: 0; }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #050405bb;
+  backdrop-filter: blur(4px);
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-content {
+  padding: 20px;
+}
+
+.eyebrow {
+  color: var(--red-light);
+  letter-spacing: 5px;
+  font-size: 12px;
+}
+
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(42px, 8vw, 78px);
+  line-height: 1;
+  margin: 20px 0;
+  text-shadow: 0 0 25px #a52b3566;
+}
+
+.overlay p {
+  color: #b7a7af;
+  margin-bottom: 25px;
+  letter-spacing: 2px;
+}
+
+button {
+  font-family: 'Rajdhani', sans-serif;
+  cursor: pointer;
+}
+
+#start-button {
+  background: #701c27;
+  border: 1px solid #c64b57;
+  color: white;
+  padding: 14px 30px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+#start-button:hover {
+  background: #a52b35;
+  box-shadow: 0 0 25px #a52b3566;
+}
+
+.game-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  background: #100c10;
+  border-top: 1px solid #38232a;
+  gap: 20px;
+}
+
+.health {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.health-track {
+  width: 120px;
+  height: 8px;
+  background: #38232a;
+  overflow: hidden;
+}
+
+.health-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--red-light);
+  transition: width 0.2s;
+}
+
+.health strong {
+  color: var(--red-light);
+}
+
+.weapon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.weapon strong {
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+.view-button {
+  background: transparent;
+  border: 1px solid #5d3039;
+  color: #d9b8c0;
+  padding: 10px 16px;
+  letter-spacing: 1px;
+}
+
+.view-button:hover {
+  border-color: var(--red-light);
+  color: white;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 15px;
+  color: #79666e;
+  font-size: 12px;
+  letter-spacing: 2px;
+  flex-wrap: wrap;
+}
+
+.controls-separator {
+  width: 25px;
+}
+
+.message {
+  min-height: 25px;
+  text-align: center;
+  color: var(--red-light);
+  margin-top: 10px;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .arena {
+    height: 420px;
+  }
+
+  .hud {
+    gap: 18px;
+    padding: 12px;
+  }
+
+  .game-footer {
+    padding: 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .health-track {
+    width: 80px;
+  }
+
+  .weapon strong {
+    font-size: 11px;
+  }
+
+  .view-button {
+    padding: 8px;
+    font-size: 12px;
+  }
+      }
